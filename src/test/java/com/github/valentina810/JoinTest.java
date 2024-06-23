@@ -19,7 +19,7 @@ class JoinTest {
     @ParameterizedTest(name = "{0},{1} = NullPointerException")
     @MethodSource("com.github.valentina810.data.JoinTestData#negativeDataProvider")
     public void checkNegative(Iterable data, String delimiter, String expected) {
-        Exception exception = assertThrows(NullPointerException.class, () -> IterableHelpers.join(data, delimiter));
+        NullPointerException exception = assertThrows(NullPointerException.class, () -> IterableHelpers.join(data, delimiter));
         assertEquals(expected, exception.getMessage());
     }
 }

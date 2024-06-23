@@ -13,8 +13,7 @@ public class JoinWithToStringTest {
     @ParameterizedTest(name = "{0},{1} = {2}")
     @MethodSource("com.github.valentina810.data.JoinWithToStringTestData#positiveDataProvider")
     public <T> void checkPositive(Iterable<T> data, String delimiter, Function<T, String> toString, String expected) {
-        String result = IterableHelpers.join(data, delimiter, toString);
-        assertEquals(expected, result);
+        assertEquals(expected, IterableHelpers.join(data, delimiter, toString));
     }
 
     @ParameterizedTest(name = "{0},{1} = NullPointerException")
