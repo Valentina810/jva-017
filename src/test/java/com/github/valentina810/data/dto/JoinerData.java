@@ -84,10 +84,10 @@ public class JoinerData<T> {
 
     @Override
     public String toString() {
-        String s = toStringFunction == null ? "null" : "задана";
+        String isStringFunction = toStringFunction == null ? "null" : "задана";
         return "JoinerData{" +
                 "delimiter='" + delimiter + '\'' +
-                ", toStringFunction=" + s+
+                ", toStringFunction=" + isStringFunction +
                 ", data=" + data +
                 ", args=" + Arrays.toString(args) +
                 ", expectedResult='" + expectedResult + '\'' +

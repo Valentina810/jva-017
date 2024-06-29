@@ -17,50 +17,49 @@ import java.util.Vector;
 import java.util.stream.Stream;
 
 import static java.util.Arrays.asList;
-import static java.util.List.of;
-import static org.junit.jupiter.params.provider.Arguments.arguments;
+import static org.junit.jupiter.params.provider.Arguments.of;
 
 public class JoinTestData {
     static Stream<Arguments> positiveDataProvider() {
         return Stream.of(
-                arguments(new Builder<>()
+                of(new Builder<>()
                         .delimiter("<>")
                         .data(new ArrayList<>(asList(1, 2, 3)))
                         .expectedResult("1<>2<>3")
                         .build()),
-                arguments(new Builder<>()
+                of(new Builder<>()
                         .delimiter("/")
                         .data(new HashSet<>(asList("Abc", "efg")))
                         .expectedResult("Abc/efg")
                         .build()),
-                arguments(new Builder<>()
+                of(new Builder<>()
                         .delimiter("/")
                         .data(new PriorityQueue<>(asList("Abc", "efg")))
                         .expectedResult("Abc/efg")
                         .build()),
-                arguments(new Builder<>()
+                of(new Builder<>()
                         .delimiter("")
                         .data(new Vector<>(asList(1, 2)))
                         .expectedResult("12")
                         .build()),
-                arguments(new Builder<>()
+                of(new Builder<>()
                         .delimiter("+")
                         .data(new TreeSet<>(asList(1, 2, 8, 9)))
                         .expectedResult("1+2+8+9")
                         .build()),
-                arguments(new Builder<>()
+                of(new Builder<>()
                         .delimiter("")
-                        .data(of())
+                        .data(List.of())
                         .expectedResult("")
                         .build()),
-                arguments(new Builder<>()
+                of(new Builder<>()
                         .delimiter("/")
-                        .data(of())
+                        .data(List.of())
                         .expectedResult("")
                         .build()),
-                arguments(new Builder<>()
+                of(new Builder<>()
                         .delimiter("/")
-                        .data(of(new Person("Анна"), new Person("Максим")))
+                        .data(List.of(new Person("Анна"), new Person("Максим")))
                         .expectedResult("Person{name='Анна'}/Person{name='Максим'}")
                         .build())
         );
@@ -68,22 +67,22 @@ public class JoinTestData {
 
     static Stream<Arguments> negativeDataProvider() {
         return Stream.of(
-                arguments(new Builder<>()
+                of(new Builder<>()
                         .delimiter("")
                         .data(new ArrayList<>(asList(1, null)))
                         .expectedResult("во входном наборе данных элемент со значением null не допускается")
                         .build()),
-                arguments(new Builder<>()
+                of(new Builder<>()
                         .delimiter("")
                         .data(null)
                         .expectedResult("data не может быть null")
                         .build()),
-                arguments(new Builder<>()
+                of(new Builder<>()
                         .delimiter(null)
-                        .data(of(1, 2))
+                        .data(List.of(1, 2))
                         .expectedResult("delimiter не может быть null")
                         .build()),
-                arguments(new Builder<>()
+                of(new Builder<>()
                         .delimiter(null)
                         .data(null)
                         .expectedResult("data не может быть null")
@@ -93,76 +92,76 @@ public class JoinTestData {
 
     private static Stream<Arguments> positiveDataProviderWithToString() {
         return Stream.of(
-                Arguments.of(new JoinerData.Builder<>()
+                of(new JoinerData.Builder<>()
                         .delimiter("<>")
                         .toStringFunction(String::valueOf)
                         .data(Arrays.asList(1, 2, 3))
                         .expectedResult("1<>2<>3")
                         .build()),
-                Arguments.of(new JoinerData.Builder<>()
+                of(new JoinerData.Builder<>()
                         .delimiter(", ")
                         .toStringFunction(String::valueOf)
                         .data(Collections.emptyList())
                         .expectedResult("")
                         .build()),
-                Arguments.of(new JoinerData.Builder<>()
+                of(new JoinerData.Builder<>()
                         .delimiter(", ")
                         .toStringFunction(String::valueOf)
                         .data(Collections.singletonList(1))
                         .expectedResult("1")
                         .build()),
-                Arguments.of(new JoinerData.Builder<>()
+                of(new JoinerData.Builder<>()
                         .delimiter(" - ")
                         .toStringFunction(i -> "Number " + i)
                         .data(Arrays.asList(1, 2, 3))
                         .expectedResult("Number 1 - Number 2 - Number 3")
                         .build()),
-                Arguments.of(new JoinerData.Builder<>()
+                of(new JoinerData.Builder<>()
                         .delimiter(", ")
                         .toStringFunction(String::valueOf)
                         .data(new LinkedList<>(Arrays.asList(1, 2, 3)))
                         .expectedResult("1, 2, 3")
                         .build()),
-                Arguments.of(new JoinerData.Builder<>()
+                of(new JoinerData.Builder<>()
                         .delimiter("/")
                         .toStringFunction(String::valueOf)
                         .data(new HashSet<>(Arrays.asList("Abc", "efg")))
                         .expectedResult("Abc/efg")
                         .build()),
-                Arguments.of(new JoinerData.Builder<>()
+                of(new JoinerData.Builder<>()
                         .delimiter(", ")
                         .toStringFunction(String::valueOf)
                         .data(List.of())
                         .expectedResult("")
                         .build()),
-                Arguments.of(new JoinerData.Builder<>()
+                of(new JoinerData.Builder<>()
                         .delimiter(", ")
                         .toStringFunction(String::valueOf)
                         .data(List.of(1))
                         .expectedResult("1")
                         .build()),
-                Arguments.of(new JoinerData.Builder<>()
+                of(new JoinerData.Builder<>()
                         .delimiter(" - ")
                         .toStringFunction(i -> "Number " + i)
                         .data(new ArrayList<>(Arrays.asList(1, 2, 3)))
                         .expectedResult("Number 1 - Number 2 - Number 3")
                         .build()),
-                Arguments.of(new JoinerData.Builder<>()
+                of(new JoinerData.Builder<>()
                         .delimiter(", ")
                         .toStringFunction(String::valueOf)
                         .data(new TreeSet<>(Arrays.asList(3, 1, 2)))
                         .expectedResult("1, 2, 3")
                         .build()),
-                Arguments.of(new JoinerData.Builder<>()
+                of(new JoinerData.Builder<>()
                         .delimiter(", ")
                         .toStringFunction(i -> "CustomString(" + i + ")")
                         .expectedResult("CustomString(1), CustomString(2), CustomString(3)")
                         .data(Arrays.asList(1, 2, 3))
                         .build()),
-                arguments(new Builder<>()
+                of(new Builder<>()
                         .delimiter("|")
                         .toStringFunction(i -> "*" + i.getClass().getSimpleName() + "*")
-                        .data(of(new Person("Анна"), new Person("Максим")))
+                        .data(List.of(new Person("Анна"), new Person("Максим")))
                         .expectedResult("*Person*|*Person*")
                         .build())
         );
@@ -170,31 +169,31 @@ public class JoinTestData {
 
     private static Stream<Arguments> negativeDataProviderWithToString() {
         return Stream.of(
-                Arguments.of(new JoinerData.Builder<>()
+                of(new JoinerData.Builder<>()
                         .delimiter(", ")
                         .toStringFunction(String::valueOf)
                         .data(null)
                         .expectedResult("data не может быть null")
                         .build()),
-                Arguments.of(new JoinerData.Builder<>()
+                of(new JoinerData.Builder<>()
                         .delimiter(null)
                         .toStringFunction(String::valueOf)
                         .data(null)
                         .expectedResult("data не может быть null")
                         .build()),
-                Arguments.of(new JoinerData.Builder<>()
+                of(new JoinerData.Builder<>()
                         .delimiter(null)
                         .toStringFunction(String::valueOf)
                         .data(Arrays.asList(1, 2, 3))
                         .expectedResult("delimiter не может быть null")
                         .build()),
-                Arguments.of(new JoinerData.Builder<>()
+                of(new JoinerData.Builder<>()
                         .delimiter(", ")
                         .toStringFunction(i -> "CustomString(" + i + ")")
                         .data(Arrays.asList(1, null, 3))
                         .expectedResult("во входном наборе данных элемент со значением null не допускается")
                         .build()),
-                Arguments.of(new JoinerData.Builder<>()
+                of(new JoinerData.Builder<>()
                         .delimiter(", ")
                         .toStringFunction(null)
                         .data(Arrays.asList(1, 2, 3))
