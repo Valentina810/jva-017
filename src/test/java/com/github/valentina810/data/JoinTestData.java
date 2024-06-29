@@ -198,6 +198,12 @@ public class JoinTestData {
                         .toStringFunction(null)
                         .data(Arrays.asList(1, 2, 3))
                         .expectedResult("toString не может быть null")
+                        .build()),
+                of(new Builder<>()
+                        .delimiter(null)
+                        .toStringFunction(null)
+                        .data(null)
+                        .expectedResult("data не может быть null")
                         .build())
         );
     }

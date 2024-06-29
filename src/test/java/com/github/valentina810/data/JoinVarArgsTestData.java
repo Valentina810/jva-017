@@ -154,6 +154,12 @@ public class JoinVarArgsTestData {
                         .toStringFunction(null)
                         .args(new String[]{"one", "two"})
                         .expectedResult("toString не может быть null")
+                        .build()),
+                of(new JoinerData.Builder<>()
+                        .delimiter(null)
+                        .toStringFunction(null)
+                        .args(null)
+                        .expectedResult("data не может быть null")
                         .build())
         );
     }
